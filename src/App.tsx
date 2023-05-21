@@ -45,6 +45,26 @@ function App() {
       });
   };
 
+  const updateItem = (id: string) => {
+    fetch(`http://localhost:3001/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: mission }),
+    }).then(() => {
+      fetch("http://localhost:3001/tasks")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          SetMissions(data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    });
+  };
+
   const addItem = () => {
     fetch("http://localhost:3001/tasks", {
       method: "POST",
@@ -96,6 +116,7 @@ function App() {
             text={mission.text}
             id={mission._id}
             onDelete={() => deleteItem(mission._id)}
+            onUpdate={() => updateItem(mission._id)}
           />
         </Box>
       ))}
