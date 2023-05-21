@@ -15,6 +15,7 @@ export const Item = ({ text, id, onDelete }: CardProps) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        d;
         console.log(data);
         onDelete(); // Call the onDelete callback to update the UI
       })
